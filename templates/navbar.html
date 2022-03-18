@@ -1,0 +1,86 @@
+{% load static %}
+{% block content %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container-fluid">
+              <a title="DisHub" class="navbar-brand" href="/">
+                <img src="{% static 'images/icons/pentagon.svg' %}" alt="" width="30" height="24" class="d-inline-block align-text-top">
+                Dis<span style="color: rgb(230, 163, 77);">Hub</span>
+              </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        
+        <form class="navbar-nav me-auto mb-2 mb-lg-0" style="margin-left: 3rem;" class="d-flex">
+            <div class="input-group">
+                <span class="input-group-text" id="basic-addon1"><img src="{% static 'images/icons/search.svg' %}" alt=""></span>
+                <input type="search" class="form-control" placeholder="Search" aria-label="Username" aria-describedby="basic-addon1">
+              </div>
+          <button class="btn btn-outline-light" type="submit">Search</button>
+        </form>
+        <div class="auth-photo me-2">
+            <div class="photo me-2">
+                <a href="{% url 'profile' user %}"><img class="photo-dp" src="{{ user.dp.url }}" alt="" srcset=""></a>
+                
+            </div>
+            {% if user.is_authenticated %}
+    <small class="text-white"><span>@</span>
+        <a href="{% url 'profile' user.username %}">{{user.username}}</a> </small>
+        </div>
+        <a class="btn btn-primary" href="{% url 'logout' %}">logout</a>
+        {% else %}
+        <a href="{% url 'login-form' %}" class="btn btn-outline-warning">Login</a>
+        {%endif%}
+      </div>
+    </div>
+  </nav>
+<div style="margin-top: 3rem;" class=" bg-dark mobile-nav">
+<div class="container-mobi">
+
+    <form>
+        <div class="input-group">
+            <span class="input-group-text" id="basic-addon1"><img src="{% static 'images/icons/search.svg' %}" alt=""></span>
+            <input type="search" class="form-control" placeholder="Search" aria-label="Username" aria-describedby="basic-addon1">
+            <button class="btn btn-outline-light" type="submit">Search</button>
+          </div>
+      
+    </form>
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 1.5rem;">
+        {% if user.is_authenticated %}
+        <div  class="auth-photo">
+            <div class="photo me-2">
+                <a href="{% url 'profile' user %}"><img class="photo-dp" src="{{ user.dp.url }}" alt="" srcset=""></a>
+                
+            </div>
+    <small class="text-white"><span>@</span>
+        <a style="text-decoration: none; color: white;" href="{% url 'profile' user %}">{{ request.user}}</a></small>
+
+        </div>
+        <a class="btn btn-outline-light" href="{% url 'logout' %}">logout</a>
+        {% else %}
+<a href="{% url 'login-form'%}" class="btn btn-secondary">Login</a>
+{% endif %}
+    </div>
+    
+
+</div>
+
+</div>
+
+<script>
+    let menu = document.querySelector('.navbar-toggler-icon');
+    let vie = document.querySelector('.mobile-nav');
+    menu.addEventListener('click',view)
+  pressed = false;
+  function view (){
+      if(pressed==false){
+          vie.style.display ='block';
+          pressed = true;
+      }
+      else{
+          vie.style.display = 'none';
+          pressed = false
+      }
+  }
+</script>
+{% endblock %}

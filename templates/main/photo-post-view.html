@@ -1,0 +1,169 @@
+{% extends 'main.html' %}
+{% block content %}
+{% load static%}
+<style>
+  .auth-photo{
+                 display: flex;
+                 justify-content: center;
+                 align-items: center;
+             }
+ .onmind{
+   padding: 5px;
+   padding-top: 1rem;
+   padding-bottom: 1rem;
+   background-color: rgb(193, 150, 233);
+   border-radius: 20px;
+ }
+ .feeds{
+   margin-top: 2rem;
+ }
+ .p{
+   width: 60px;
+   cursor: pointer;
+ }
+ .post{
+   border-radius: 10px;
+ }
+</style>
+<div style="margin-top: 6rem;" class="page">
+ <div style="background-color: rgb(108, 166, 218);" class="left-side">
+     <h2>side</h2>
+     <input class="form-control" type="text" name="" id="">
+ </div>
+<div class="feeds">
+   <div style="background-color: #e8eaf0; padding-bottom: 1rem;" class="post">
+     <div style="margin: 0.5rem 0.5rem 0rem 0.5rem; position: relative;" class="post-header">
+
+      
+      <div style="position: absolute; right: 0.4rem; top: 0rem;" class="dot">
+        <img src="{% static 'images/icons/three-dots.svg' %}" alt="menus">
+      </div>
+     
+      <div class="menus">
+        {% if user == item.creater %}
+        <a href="{% url 'delete_photo_post' item.id %}"> <img style="height: 1.5rem; margin-bottom: 1rem;" src="{% static 'images/icons/trash3.svg' %}" alt="delete"> </a>
+        <a href=""> <img style="height: 1.5rem;" src="{% static 'images/icons/pencil-square.svg' %}" alt=""> </a>
+        {% endif %}
+      </div>
+    
+       <div  class="auth-photo">
+       
+         <div style="width: 60px; height: 60px;" class="photo me-2">
+             <img  class="photo-dp" src="{{item.creater.dp.url}}" alt="" srcset="">
+         </div>
+ <small class="">Posted by <b> <a href="">{{item.creater}}</a> </b></small>
+ 
+     </div>
+     </div>
+     <div style="padding-left: 0.5rem;" class="time">
+       <small >{{item.created|timesince}}</small>
+     </div>
+     <div style="padding: .5rem;" class="post-body">
+       <p>{{item.text}} </p>
+     </div>
+          <div style="display: flex; justify-content: center;" class="post-pic">
+       <img style="width: auto; max-height: 500px;" src="{{ item.photo.url }}" class="img-fluid" alt="...">
+     </div>
+     
+   </div>
+   <br>
+ </div>
+
+ <div class="right-side">
+  <div class="container">
+    <h3>comments</h3>
+  </div>
+
+
+
+  <div class="right-side">
+  <div style="background-color: rgb(219, 215, 208); padding: 0.5rem;" class="box">
+    <div style="display:flex; align-items:center;"  class="cm-ion">
+      <a href="#cm">
+      <img style="height:2rem" src="{% static 'images/icons/chat-square-text-fill.svg' %}" alt="icon"></a>
+      <h4 style="padding-left: 3px;">{{ no }}</h4>
+    
+    </div>
+  </div>
+  {% if comments %}
+  {% for comment in comments %}
+    <div  style="margin: 0.6rem; display:flex; align-items: flex-start;" class="comment-area">
+    
+      <div class="auth-photo">
+        <div style="min-width:45px ;" class="photo me-2">
+            <img class="photo-dp" src="{{ comment.creater.dp.url}}" alt="" srcset="">
+        </div>
+    
+    </div>
+    <style>
+    </style>
+    <div class="comment-body">
+      <div style="position: relative;" class="comment-item">
+        {% if user == comment.creater or user == item.creater %}
+        <div style="position: absolute; right: 0.4rem; top: 0rem;" class="dot">
+          <img src="{% static 'images/icons/three-dots.svg' %}" alt="">
+        </div>
+        <div class="menus">
+          <a href="{% url 'photo-post-delete' comment.id %}"> <img style="height: 1.5rem; margin-bottom: 1rem;" src="{% static 'images/icons/trash3.svg' %}" alt="delete"> </a>
+          <a href=""> <img style="height: 1.5rem;" src="{% static 'images/icons/pencil-square.svg' %}" alt=""> </a>
+        </div>
+        {% endif %}
+        <a href=""><b><small>@{{comment.creater}}</small></b></a>
+      
+        <p> {{comment.text}} </p>
+      </div>
+      <small class="muted">{{comment.created|timesince}}</small>
+    </div>
+    
+    </div>
+    {% endfor %}
+    {% else %}
+   <div style="margin-top: 1rem; display: flex; flex-direction: column; justify-content: center;" class="no-comments">
+     <img style="height: 2rem;" src="{% static 'images/icons/chat-square-heart-fill.svg' %}" alt="">
+    <center> <small>No comment, be first to comment</small> </center>
+    
+   </div>
+  {% endif %}
+  {% if user.is_authenticated %}
+   <div class="comment-input">
+     <form action="" method="post">
+      {% csrf_token %}
+     <div id="cm" class="comment-input-area">
+       <input class="form-control comment-in" name="body-text" placeholder="Comment" required type="text">
+      <button style="background-color: transparent; border: none;" class="btn btn-outline-light" type="submit"><img style="height: 1.5rem; color: red;" src="{% static 'images/icons/send.svg' %}" alt=""></button>
+     </div>
+    </form>
+   </div>
+  {% endif %}
+  </div>
+
+
+
+</div>
+     </div>
+
+    <script>
+       let dot = document.querySelectorAll('.dot');
+        let menus = document.querySelectorAll('.menus');
+        let pressed = false;
+        // dot.forEach( (x,) =>{
+        //   x.addEventListener('click',()=>{
+        //     console.log('work')
+        //     menus[2].style.display ='flex';
+        //   })
+        // })
+        for(let i =0; i < dot.length;i++){
+          dot[i].addEventListener('click',() =>{
+            if(pressed){
+              menus[i].style.display='none';
+              pressed = false;
+            }else{
+              menus[i].style.display='flex';
+              pressed =true;
+            }
+           
+          })
+        }
+    </script>
+  
+{% endblock %}

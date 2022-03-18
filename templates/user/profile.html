@@ -1,0 +1,106 @@
+{% extends 'main.html' %}
+{% block content %}
+{% load static %}
+
+<div style="margin-top: 1.5rem;" class="page">
+  <div style="background-color: rgb(108, 166, 218);" class="left-side">
+      <h2>side</h2>
+      <input class="form-control" type="text" name="" id="">
+  </div>
+  
+  <style>
+    .profile-con{
+      background-color: rgb(212, 228, 228);
+      position: relative;
+  
+    }
+    .profile-photo{
+      width: 250px;
+      height: 250px;
+      
+    }
+    .dp-img{
+      border-radius: 100%;
+    }
+    .bg{
+      height: 150px;
+      background-color: #b8c5c7;
+    }
+    .mob{
+      right: 0rem;
+      position: absolute; 
+      top: 7rem;
+    }
+    .profi{
+     position: absolute;
+     top: 10rem;
+     display: flex;
+    }
+    @media screen and (max-width: 600px) {
+      .right-side{
+        margin-top: 20rem;
+      }
+      .profi{
+        top: 2rem;
+        left: 12%;
+        flex-direction: column;
+        justify-content: center;
+      }
+      .mob{
+        left: 0rem;
+        top: 22rem;
+      }
+    }
+  </style>
+  
+  <div class="profile-con">
+    <div class="bg">
+      
+      <div style="position: absolute; " class="profi">
+        {% if user.username == userp.username %}
+        <a  href="{% url 'profile_update' user.username %}" class="btn btn-outline-dark mob">edit info</a>
+        {% endif %}
+        <div style="min-width:45px ;" class="photo profile-photo">
+         <img class="photo-dp dp-img" src="{{ userp.dp.url}}" alt="" srcset="">
+      </div>
+      <div class="names">
+        <h3>{{userp.first_name}} {{userp.last_name}}</h3>
+        <small>@{{userp.username}}</small>
+        <p>{{userp.email}}</p>
+      </div>
+      </div>
+     
+    </div>
+  
+  </div>
+  
+  <div class="right-side">
+  <div class="intro">
+    <h5>Basic info</h5>
+    <small>Bio</small>
+    <p style="border-radius: 10px; word-wrap: break-word; padding: 6px; background-color: #f6f6f6;">{{userp.bio}}</p>
+    <div style="border-radius: 10px; padding: 4px; background-color: #f2f2f2; display: flex; align-items: center;" class="edu">
+      <img style=" width: 1.5rem; margin-right: 0.5rem;" src="{% static 'images/icons/house.svg' %}" alt=""> <span>Nairobi Kenya</span>
+    </div>
+    <div style="border-radius: 10px; margin-top: 1rem; padding: 4px; background-color: #f2f2f2; display: flex; align-items: center;" class="edu">
+      <img style=" width: 1.5rem; margin-right: 0.5rem;" src="{% static 'images/icons/bar-chart.svg' %}" alt=""> <span>{{userp.level}}</span>
+    </div>
+    <div style="border-radius: 10px; margin-top: 1rem; padding: 4px; background-color: #f2f2f2; display: flex; align-items: center;" class="edu">
+      <img style=" width: 1.5rem; margin-right: 0.5rem;" src="{% static 'images/icons/mortarboard.svg' %}" alt=""> <span>{{userp.institution}}</span>
+    </div>
+  </div>
+  
+  </div>
+      </div>
+      
+  
+  
+  </div>
+  
+  
+  
+  
+
+
+
+{% endblock %}

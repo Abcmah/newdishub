@@ -1,0 +1,29 @@
+{% extends 'main.html'%}
+{% block content %}
+
+<div style="width: 500px; background-color: black;" class="topic_form">
+    <form action="" method="post">
+        {% csrf_token%}
+        <div class="lg">
+            Create Group
+        </div>
+        <div class="usr">
+            <p>Name</p>           
+            <input style="background-color: #555555; border:1px solid#5f9ea0;color: rgb(194, 182, 182);" class="form-control" type="text" name="namee" placeholder="Name" id="">
+        </div>
+        <div class="usr">
+            <p>About</p>
+            <textarea style="background-color: #555555; border:1px solid#5f9ea0;color: rgb(194, 182, 182);" class="form-control" name="about" id="" cols="30" placeholder="discribe" rows="10"></textarea>
+        </div>
+        <div class="bt">
+            <button class="btn btn-primary" type="submit">Create</button>
+            <a href="{{request.META.HTTP_REFERE}}" class="btn btn-dark" >Cancel</a>
+        </div>
+    </form>
+</div>
+<script>
+    let name = document.querySelector('#id_name')
+    name.className = 'form-control'
+</script>
+
+{% endblock %}

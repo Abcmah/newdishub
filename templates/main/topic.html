@@ -1,0 +1,26 @@
+{% extends 'main.html'%}
+{% block content %}
+
+
+<div style="width: 500px; background-color: black;" class="topic_form">
+    <form action="" method="post">
+        {% csrf_token %}
+        <div class="lg">
+            add topic
+        </div>
+        <div class="usr">
+            <p>Topic</p>
+            <input style="background-color: #555555; border:1px solid#5f9ea0;color: rgb(194, 182, 182);" class="form-control" type="text" name="topic" placeholder="Topic" id="">
+        </div>
+        <div class="usr">
+            <p>About</p>
+            <textarea style="background-color: #555555; border:1px solid#5f9ea0;color: rgb(194, 182, 182);" class="form-control" name="about" id="" cols="30" placeholder="discribe" rows="10"></textarea>
+        </div>
+        <div class="bt">
+            <button class="btn btn-primary" type="submit">submit</button>
+            <button class="btn btn-primary" type="submit">Cancel</button>
+        </div>
+    </form>
+</div>
+
+{% endblock %}

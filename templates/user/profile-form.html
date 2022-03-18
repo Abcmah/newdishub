@@ -1,0 +1,123 @@
+{% extends 'main.html' %}
+{% block content%}
+
+<style>
+    .page{
+      display: grid;
+      grid-template-columns: 16rem auto 16rem;
+      gap: 2rem;
+    }
+    @media screen and (max-width:900px) {
+      .right-side{
+        display: none;
+      }
+      .page{
+        grid-template-columns: 16rem auto;
+        gap: 1rem;
+      }
+      .row{
+        margin-right: 1rem;
+      }
+    }
+    @media screen and (max-width: 600px) {
+      .page{
+          display: flex;
+          flex-direction: column;
+          padding: 1rem;
+      }
+      .left-side{
+          display: none;
+      }
+    }
+     
+    </style>
+    <div style="margin-top: 4rem;" class="page bg-light">
+      <div style="background-color: rgb(240, 243, 245);" class="left-side">
+        <div class="container">
+            <div class="auth-photo me-2">
+            
+                <div style="width: 70px;height: 70px;" class="photo me-2">
+                    <a href="{% url 'profile' user.username %}"><img class="photo-dp" src="{{ user.dp.url }}" alt="" srcset=""></a>
+                    
+                </div>
+        <small class="text-white"><span>@</span>
+            <a href="{% url 'profile' user.username %}">{{user.username}}</a> </small>
+            </div>
+            <h3>{{user.first_name}}</h3>
+        </div>
+       
+      </div>
+      
+          <div class="update-form">
+      <div>
+      
+              <form method="post" enctype="multipart/form-data" class="row g-3">
+                  <h3>Update your profile</h3>
+                  {% csrf_token %}
+                  <div class="col-md-6">
+                    <label for="inputEmail4" class="form-label">First Name</label>
+                    {{form.first_name}}
+                  </div>
+                  <div class="col-md-6">
+                    <label for="inputPassword4" class="form-label">Last Name</label>
+                    {{form.last_name}}
+                  </div>
+                  <div class="col-12">
+                    <label for="inputAddress" class="form-label">Email Address</label>
+                    {{form.email}}
+                  </div>
+                  <div class="col-12">
+                    <label for="inputAddress2" class="form-label">Institution</label>
+                    {{form.institution}}
+                  </div>
+                  <div class="col-md-6">
+                    <label for="inputCity" class="form-label">City/Town</label>
+                    <input type="text" class="form-control" id="inputCity">
+                  </div>
+                  <div class="col-md-4">
+                    <label for="inputState" class="form-label">State</label>
+                    {{form.dp}}
+                  </div>
+                  <div class="col-md-2">
+                    <label for="inputZip" class="form-label">Level</label>
+                    {{form.level}}
+                  </div>
+                  <div class="col-12">
+                    <label for="inputAddress" class="form-label">Bio</label>
+                    {{form.bio}}
+                  </div>
+                  <div class="col-12">
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" id="gridCheck">
+                      <label class="form-check-label" for="gridCheck">
+                        Check me out
+                      </label>
+                    </div>
+                  </div>
+                  <div class="col-12">
+                    <button type="submit" class="btn btn-primary">Update</button>
+                  </div>
+                </form>
+          </div>
+          </div>
+          
+      <div class="right-side">
+          <h1>right</h1>
+      </div>
+
+
+
+
+
+<style>
+    .sasa{
+    border:1px solid#5f9ea0;
+    color: rgb(194, 182, 182);
+  }
+</style>
+
+<script>
+    let inputs = document.querySelector('input');
+    inputs.className='form-control'
+</script>
+{% endblock %}

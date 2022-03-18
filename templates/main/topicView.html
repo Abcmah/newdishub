@@ -1,0 +1,106 @@
+{% extends "main.html" %}
+{% block content %}
+{% load static %}
+<div class="topic_container">
+    <div class="ctl">
+        <div style="margin: 0.4rem;" class="ar">
+            <img src="{% static 'images/icons/arrow-left-circle.svg' %}" alt="">
+        </div>
+        <div style="margin: 0.4rem;" class="cr">
+            <img src="{% static 'images/icons/x-circle.svg' %}" alt="">
+        </div>
+    </div>
+    <div style="font-size:1rem" class="topic_hd">
+        {{topics.creater}}
+        <h5 style="margin-top: 1rem;margin-bottom: 1rem;"> {{ topics.topic }}</h5>
+        <div class="dis">
+            <p style="font-size: 0.7rem;">
+                {{ topics.description }}
+            </p>
+        </div>
+       
+    </div>
+
+<div style="height: 54vh; display: flex; flex-direction: column;" class="msg-area">
+    {% for message in messages %}
+    {% if not request.user == message.host %}
+
+    
+<div class="msg">
+<div class="sender">
+    <img class="sender" src="{{ message.host.dp.url }}" alt="">
+    
+   
+</div>
+<div class="msg-body">
+    <div style="font-size: 0.8rem; color:#0b810b" class="sender-name">
+        <small> ~{{ message.host }}</small>
+  
+    </div>
+    {% if request.user == topics.creater %}
+    <div class="d-e">
+
+
+            <a href="{% url 'delete_message' message.id%}">d</a>
+        <a href="">e</a>
+    </div>
+    {% endif %}
+    <div class="text-msg">
+        <p style="word-wrap: wrap;">{{ message.body}}</p>
+    </div>
+    <div class="msg-time">
+        <small>{{ message.created|time }}</small>
+        </div>
+
+</div>
+</div>
+{% else %}
+<!------------------------------------------------------->
+<div style="" class="msg">
+<div style=" border-radius: 40px 0px;" class="msg-body">
+    <div style="display: flex; justify-content: space-between; font-size: 0.8rem; color:#0b810b" class="sender-name">
+        <small style="margin-left: 1rem;"> ~you</small>
+        <div class="d-e">
+            <a href="{% url 'delete_message' message.id%}">d</a>
+            <a href="">e</a>
+        </div>
+       
+    </div>
+    
+    <div style=" border-radius: 40px 0px;" class="text-msg">
+        <p  style="border-radius: 0px 40px; word-wrap: wrap;">{{message.body}}</p>
+    </div>
+    <div style="float: left;" class="msg-time">
+        <small>{{message.created|time}}</small>
+        </div>
+
+</div>
+<div class="sender">
+    <img class="sender" src="{{ message.host.dp.url }}" alt="">
+</div>
+</div>
+{% endif %}
+{% endfor %}
+<!---------------------------------------------------------------->
+
+</div>
+
+<!-------------------------------------------------->
+<div class="form-input">
+<form action="" method="post">
+    {% csrf_token %}
+    <div class="jk">
+        <div class="wraper">
+            <input style="background-color: transparent; border: none;" class="form-control" type="text" name="body-text" placeholder="write here" id="">
+        </div>
+        <div style="margin-left: 1rem;" class="btw">
+            <button class="btn btn-light" type="submit">send</button>
+        </div>
+    </div>
+   
+    
+</form>
+</div>
+
+</div>
+{% endblock %}

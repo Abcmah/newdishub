@@ -1,0 +1,92 @@
+{% extends 'main.html'%}
+{% block content %}
+{% load static %}
+<style>
+   .auth-photo{
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+              }
+  .onmind{
+    padding: 5px;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    background-color: rgb(193, 150, 233);
+    border-radius: 20px;
+  }
+  .feeds{
+    margin-top: 2rem;
+  }
+  .p{
+    width: 60px;
+    cursor: pointer;
+  }
+  .post{
+    border-radius: 10px;
+  }
+</style>
+<div style="margin-top: 6rem;" class="page">
+  <div style="background-color: rgb(108, 166, 218);" class="left-side">
+      <h2>side</h2>
+      <input class="form-control" type="text" name="" id="">
+  </div>
+  
+      <div  class="home-feeds">
+        <div style="background-color: rgb(226, 220, 220); padding: 1rem;"  class="auth-photo">
+          <div style="width: 60px; height: 60px;" class="photo me-2">
+              <img class="photo-dp" src="{{ user.dp.url}}" alt="" srcset="">
+          </div>
+          <div class="onmind">
+            <a style="text-decoration: none; color: #000;" href="{% url 'create-text-post' %}"> <small>What's on your mind {{request.user}}</small></a>
+           
+          </div>
+          <div class="p">
+            <a href="{% url 'creat_photo_post' %}"><img style="width: 100%;" src="./static/images/icons/file-image-fill.svg" alt=""></a>
+            
+          </div>
+      </div>
+  
+  <div style="margin-top: 1.5rem;"  class="view">
+    <a class="btn btn-outline-secondary" href="{% url 'view-text-post' %}">view texts posts</a>
+    <a class="btn btn-outline-secondary" href="">Browse Group</a>
+  </div>
+  <div class="feeds">
+    {% for photo in photo_post %}
+    <div style="background-color: #e8eaf0; padding-bottom: 1rem;" class="post">
+      <div style="margin: 0.5rem 0.5rem 0rem 0.5rem;" class="post-header">
+        <div  class="auth-photo">
+          <div style="width: 60px; height: 60px;" class="photo me-2">
+            <a href="{% url 'profile' photo.creater.username %}">
+              <img  class="photo-dp" src="{{photo.creater.dp.url}}" alt="" srcset="">
+            </a>
+             
+          </div>
+  <small class="">Posted by <a style="text-decoration: none; color: #000;" href="{% url 'profile' photo.creater.username %}"> <b>{{photo.creater}}</b> </a></small>
+  
+      </div>
+      </div>
+      <div style="padding-left: 0.5rem;" class="time">
+        <small >{{photo.created|timesince}}</small>
+      </div>
+      <div style="padding: .5rem;" class="post-body">
+        <p>{{photo.text}} </p>
+      </div>
+      <a href="{% url 'view_photo_post' photo.id%}">
+      <div style="display: flex; justify-content: center;" class="post-pic">
+        <img style="width: auto; max-height: 500px;" src="{{ photo.photo }}" class="img-fluid" alt="...">
+      </div>
+    </a>
+      
+    </div>
+    <br>
+{% endfor%}
+
+  </div>
+      </div>
+      <div class="right-side">
+        <h1>right</h1>
+    </div>
+    
+    </div>
+    
+{% endblock %}

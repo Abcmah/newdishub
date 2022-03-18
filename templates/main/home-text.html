@@ -1,0 +1,81 @@
+{% extends 'main.html'%}
+{% block content %}
+{% load static %}
+<style>
+   .auth-photo{
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+              }
+  .onmind{
+    padding: 5px;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    background-color: rgb(193, 150, 233);
+    border-radius: 20px;
+  }
+  .feeds{
+    margin-top: 2rem;
+  }
+  .p{
+    width: 60px;
+    cursor: pointer;
+  }
+  .post{
+    border-radius: 10px;
+  }
+</style>
+<div style="margin-top: 6rem;" class="page">
+  <div style="background-color: rgb(108, 166, 218);" class="left-side">
+      <h2>side</h2>
+      <input class="form-control" type="text" name="" id="">
+  </div>
+  
+      <div  class="home-feeds">
+        <div style="background-color: rgb(226, 220, 220); padding: 1rem;"  class="auth-photo">
+          <div style="width: 60px; height: 60px;" class="photo me-2">
+              <img class="photo-dp" src="{{ user.dp.url}}" alt="" srcset="">
+          </div>
+          <div class="onmind">
+            <a style="text-decoration: none; color: #000;" href="{% url 'create-text-post' %}"> <small>What's on your mind {{request.user}}</small></a>
+           
+          </div>
+          <div class="p">
+            <a href="{% url 'creat_photo_post' %}"><img style="width: 100%;" src="./static/images/icons/file-image-fill.svg" alt=""></a>
+            
+          </div>
+      </div>
+  
+  <div style="margin-top: 1.5rem;"  class="view">
+    <a class="btn btn-outline-secondary" href="{% url 'home' %}">view photo posts</a>
+    <a class="btn btn-outline-secondary" href="">Browse Group</a>
+  </div>
+  <div class="feeds">
+
+{% for text_post in text_posts %}
+<div style="margin-bottom: 1rem; background-color: #e8eaf0; border-radius: 10px; max-width: 600px; margin: auto;" class="text-post">
+  <div style="justify-content: flex-start; padding: 4px;" class="auth-photo">
+    <div style="width: 60px; height: 60px;" class="photo me-2">
+        <img  class="photo-dp" src="{{text_post.creater.dp.url}}" alt="" srcset="">
+    </div>
+<small class="">Posted by {{text_post.creater}}</small>
+
+</div>
+<small style="margin:1rem;">{{text_post.created|timesince}}</small>
+<div class="text-area">
+  <p style="padding: 0.5rem;">{{ text_post.body}}</p>
+</div>
+</div>
+<br>
+<br>
+{% endfor %}
+
+  </div>
+      </div>
+      <div class="right-side">
+        <h1>right</h1>
+    </div>
+    
+    </div>
+    
+{% endblock %}

@@ -1,0 +1,87 @@
+{% extends 'main.html'%}
+{% block content %}
+{% load static %}
+
+
+<div style="color: aliceblue;" class="g-container">
+    <div class="gp">
+        <div style="border-bottom: 1px solid white;" class="group-header">
+            <div style="display: flex; align-items: center; justify-content: space-between; overflow: hidden; align-content: center;" class="nm">
+                <div><h4>{{ group.name }}</h4></div>
+                <div class="add-grup">
+                    <a class="btn btn-info" href="{% url 'add_topic' group.id %}">
+                        <img src="{% static 'images/icons/plus.svg' %}" alt="">
+                        topic</a>
+                </div>
+            </div>
+            <div style="display: flex; justify-content: space-between;" class="dis">
+                <div class="admin">
+                    <div>created by</div>
+                    <small>@{{ group.host}}</small>
+                    {% if request.user == group.host %}
+                    <small><a href="{% url 'delete_group' group.id %}">delete</a></small>
+                    <small><a href="{% url 'group_update' group.id %}">update</a></small>
+                    {% endif %}
+                </div>
+                <div class="members">
+                <small><img src="{% static 'images/icons/people.svg' %}" alt=""><span class="badge">{{no_p}}</span> </small>
+                    
+                </div>
+
+            </div>
+           
+        </div>
+        <div class="ava">
+            <h5>Topics available</h5>
+        </div>
+        <div class="group-topics">
+            {% if topics %}
+            {% for topic in topics%}
+            <div class="group-topic">
+                <div class="topic-h">
+                    <div style="display: flex; width: 100%;" class="av">
+                        <div class="avarter">
+                            <img src="./static/images/icons/person.svg" alt="user">
+                            
+                        </div>
+                        <div style="display: flex; justify-content: space-between; width: 90%;">
+                            <div>
+                                <small style="margin-left:4px ;"><b>@{{topic.creater}}</b> created this topic</small>
+                            </div>
+                            
+                            <div style="float: l;"><small>{{ topic.created|timesince }}</small></div>
+                           
+                           
+                        </div>
+                        
+                        
+
+                    </div>
+                    
+                    <h5><a style="text-decoration: none;" href="{% url 'topicView' topic.id %}">{{topic.topic}}</a> </h5>
+                </div>
+                <div class="topic-ov">
+                    <p>
+                       {{ topic.description}}
+                    </p>
+                   
+                </div>
+                <div class="topic-ft">
+                    <small>Disscusion <span class="badge bg-dark">55</span></small>
+                </div>
+                
+
+            </div>
+
+            {% endfor %}
+            {% else %}
+            <p>No topics yet would you like to add one ?</p>
+            {% endif %}
+            </div>
+
+        </div>
+       
+       
+</div>
+
+{% endblock%}

@@ -1,0 +1,45 @@
+{%load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./static/css/main/bootstrap.css">
+    <link rel="stylesheet" href="./static/css/main/main.css">
+    <title>DiscHub | login</title>
+</head>
+<body style="background-color: #222222; display: flex; justify-content: center; height: 100vh; align-items: center;">
+    <div class="login-container">
+        <form action="" method="post">
+            {% csrf_token %}
+            <div class="lg">
+                LOGIN
+            </div>
+            <div class="mess">
+                <p>Learning made ezy</p>
+            </div>
+            <div class="usr">
+                <p>Username</p>
+                <input style="background-color: #555555; border:1px solid#5f9ea0 ;;color: rgb(194, 182, 182)" class="form-control" type="text" name="username" placeholder="eg. abcmah">
+            </div>
+            <div class="pass">
+                <p>Password</p>
+                <input style="background-color: #555555; border:1px solid#5f9ea0;color: rgb(194, 182, 182);" class="form-control" type="password" name="password" placeholder="........">
+            </div>
+            <div class="bt">
+                <button class="btn btn-primary" type="submit">
+                    <img src="{% static 'images/icons/lock.svg' %}" alt="">
+                    Login</button>
+            </div>
+            <div style="margin-bottom: 1rem;" class="footer">
+                <p id="wd">Have no account yet ?</p>
+                <div>
+                    <a href="{% url 'sign-up' %}" style="text-decoration: none; cursor: pointer;" id="lg-sp " class="text-info">Sign Up Here</a>
+                </div>
+               
+            </div>
+        </form>
+    </div>
+</body>
+</html>
