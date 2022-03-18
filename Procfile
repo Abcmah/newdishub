@@ -1,0 +1,1 @@
+web: gunicorn discHub.wsgi --log-file -
